@@ -10,6 +10,7 @@ function handlerLimitRow(text, target, limit) {
     if (text && target) {
         const textArr = text.split('')
         const targetWidth = target.offsetWidth
+        const lineHeight = parseInt(window.getComputedStyle(target)["line-height"].split('px')[0]) || parseInt(window.getComputedStyle(target)["font-size"].split('px')[0])
         const rows = []
         let count = ''
         function finishCycle(i) {
@@ -34,11 +35,14 @@ function handlerLimitRow(text, target, limit) {
             // 之所以要放到 target 中，是因为想在对应样式情况下计算 width，会更加准确
             target.innerText = count + textArr[i]
             // 用 target 来算当前内容是不是刚好够一行
+            // 经过测试，
+            console.log(target.offsetHeight)
+            console.log(lineHeight)
             if (target.offsetWidth === targetWidth) {
                 count += textArr[i]
                 rows.push(count)
                 count = ''
-            } else if (target.offsetWidth > targetWidth) {
+            } else if (target.offsetWidth > targetWidth || target.offsetHeight > lineHeight) {
                 rows.push(count)
                 count = textArr[i]
             } else {
