@@ -3,6 +3,9 @@
 
 ## 现状
 1. 当前版本只针对普通文本，如果文本中有`\n`等特殊符号，lib 并不能正常工作😂
+2. 使用时，必须要 reset css，特别是 `padding` 和 `margin`，不然会计算错误
+3. 父元素必须要是 `div` 这样的块级元素，不然JavaScript呼叫得到的 height 始终是一直的
+4. 当前是通过计算高度来判断有没有超过限制的行数的。
 
 ## 示例
 ```html
@@ -15,20 +18,23 @@
     <title>limit text row</title>
     <script src="./limit-row.js"></script>
     <style>
+        /* 这一步的 reset 很重要 */
+        html {
+            margin: 0;
+            padding: 0;
+        }
         .container {
             width: 300px;
             box-sizing: border-box;
             border: 1px solid #333333;
-        }
-        .content {
             font-size: 14px;
-            line-height: 28px;
+            line-height: 14px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <span class="content limit-row" limit-row="5">
+        <div class="limit-row" id="test" limit-row="10">
             测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
             测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
             测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
@@ -37,7 +43,7 @@
             测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
             测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
             测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-        </span>
+        </div>
     </div>
     <script>
         // 使用方式

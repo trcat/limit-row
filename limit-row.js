@@ -18,9 +18,9 @@ function handlerLimitRow(text, target, limit) {
             rows[limitRow - 1] += (textArr.slice(i + 2).join(''))
             target.innerText = ''
             rows.forEach((r, index) => {
-                const span = target.appendChild(document.createElement('span'))
+                const span = target.appendChild(document.createElement('div'))
                 span.innerText = r
-                span.style.display = 'block'
+                // span.style.display = 'block'
                 if (index === rows.length - 1) {
                     // 通过 text overflow css 属性来添加 ...
                     span.className = 'limit-row-last'
@@ -32,17 +32,11 @@ function handlerLimitRow(text, target, limit) {
             })
         }
         for (let i = 0; i < textArr.length; i++) {
-            // 之所以要放到 target 中，是因为想在对应样式情况下计算 width，会更加准确
+            // 之所以要放到 target 中，是因为想在对应样式情况下计算 height
             target.innerText = count + textArr[i]
             // 用 target 来算当前内容是不是刚好够一行
             // 经过测试，
-            console.log(target.offsetHeight)
-            console.log(lineHeight)
-            if (target.offsetWidth === targetWidth) {
-                count += textArr[i]
-                rows.push(count)
-                count = ''
-            } else if (target.offsetWidth > targetWidth || target.offsetHeight > lineHeight) {
+            if (target.offsetHeight > lineHeight) {
                 rows.push(count)
                 count = textArr[i]
             } else {
