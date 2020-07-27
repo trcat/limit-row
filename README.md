@@ -58,3 +58,7 @@
 1. `text`：string，需要限制的文本内容
 2. `target`: Element， 包含文本的直系父元素
 3. `limit`: number，限制文本行数
+
+## 思路
+目前实作的思路，主要是用目标元素的 `font-size` 或 `line-height` css 属性来确定一行的高度，然后将目标元素的 text 清空，通过 javascript 把原本的内容一个字符一个字符的往目标元素里加。当内容超过一行，则进行换行的操作（每一行都是一个数组的一个成员）。\n
+最后一行用 `text-overflow` 来实现 `...`
